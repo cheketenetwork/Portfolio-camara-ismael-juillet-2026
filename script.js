@@ -1,6 +1,22 @@
 const themeToggle = document.getElementById('theme-toggle');
 const accueilButton = document.getElementById('btn-salutation');
 const accueilMessage = document.getElementById('message-accueil');
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+
+// Menu hamburger
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+
+    // Fermer le menu quand on clique sur un lien
+    document.querySelectorAll('.nav-menu a').forEach((link) => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+    });
+}
 
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
