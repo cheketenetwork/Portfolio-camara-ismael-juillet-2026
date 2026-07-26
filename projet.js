@@ -4,7 +4,7 @@ const projetsData = {
         titre: 'Projet 1 : Calculatrice Web',
         sousTitre: 'Application web interactive d\'opérations arithmétiques',
         description: 'Création d\'une calculatrice web simple comme premier projet.\n\nFonctionnalités principales :\n- Opérations de base (addition, soustraction, multiplication, division)\n- Interface épurée et réactive\n- Prise en charge des entrées tactiles et clavier',
-        siteUrl: 'https://cusmoiphone-code.github.io/calaculatrice-tchaiiiii/'
+        siteUrl: 'https://cheketenetwork.github.io/calaculatrice-tchaiiiii/'
     },
     '2': {
         titre: 'Projet 2 : Zynx Vêtements',
