@@ -80,12 +80,25 @@ nav {
     gap: 0.75rem;
     text-decoration: none;
     color: inherit;
+    font-weight: 700;
+    transition: opacity 0.3s ease;
+}
+
+.logo a:hover {
+    opacity: 0.95;
 }
 
 .logo-img {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     display: block;
+    border-radius: 12px;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+.logo a:hover .logo-img {
+    transform: scale(1.08) rotate(-2deg);
+    filter: drop-shadow(0 4px 12px rgba(56, 189, 248, 0.45));
 }
 
 nav ul {
