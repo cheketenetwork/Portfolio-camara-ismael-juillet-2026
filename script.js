@@ -18,11 +18,18 @@ if (menuToggle && navMenu) {
     });
 }
 
+// Restauration du thème au chargement
+if (localStorage.getItem('portfolio_theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    if (themeToggle) themeToggle.textContent = '☀️ Mode clair';
+}
+
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
 
         const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('portfolio_theme', isDark ? 'dark' : 'light');
         themeToggle.textContent = isDark ? '☀️ Mode clair' : '🌙 Mode sombre';
     });
 }

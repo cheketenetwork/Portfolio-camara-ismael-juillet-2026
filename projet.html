@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Projet - Portfolio Ismael CAMARA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-projet">
+
+    <!-- En-tête -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.svg" alt="Logo du site" class="logo-img">
+                    <span>Portfolio - Ismael CAMARA</span>
+                </a>
+            </div>
+            <ul class="nav-menu active">
+                <li><a href="index.html" class="btn-back">← Retour aux projets</a></li>
+                <li><button id="theme-toggle" type="button">🌙 Mode sombre</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="projet-detail-container">
+        
+        <!-- En-tête du projet -->
+        <section class="projet-header-section">
+            <h1 id="projet-titre">Chargement du projet...</h1>
+            <p id="projet-description-courte" class="projet-subtitle"></p>
+        </section>
+
+        <!-- Section Écriture de texte -->
+        <section class="projet-section text-editor-section">
+            <div class="section-header">
+                <h2>📝 Présentation & Notes du Projet</h2>
+                <span id="save-status" class="save-status">Enregistré</span>
+            </div>
+            <p class="section-desc">Vous pouvez écrire ou modifier la description détaillée du projet ci-dessous :</p>
+            <div class="editor-wrapper">
+                <textarea id="projet-texte-editor" placeholder="Saisissez la description du projet, les fonctionnalités développées, les défis rencontrés, etc..."></textarea>
+            </div>
+        </section>
+
+        <!-- Section Captures d'écran -->
+        <section class="projet-section screenshots-section">
+            <div class="section-header">
+                <h2>🖼️ Captures d'écran du Projet</h2>
+            </div>
+            <p class="section-desc">Ajoutez et consultez les captures d'écran de ce projet :</p>
+            
+            <!-- Zone d'import de captures d'écran -->
+            <div class="upload-box" id="drop-zone">
+                <input type="file" id="screenshot-input" accept="image/*" multiple style="display: none;">
+                <label for="screenshot-input" class="upload-label">
+                    <span class="upload-icon">📁</span>
+                    <span class="upload-text"><strong>Cliquez ici</strong> ou glissez-déposez des captures d'écran</span>
+                    <span class="upload-hint">Formats acceptés : PNG, JPG, WEBP</span>
+                </label>
+            </div>
+
+            <!-- Galerie des captures -->
+            <div id="screenshots-gallery" class="screenshots-gallery">
+                <!-- Les images téléchargées ou par défaut apparaîtront ici -->
+            </div>
+        </section>
+
+        <!-- Section Lien du site en bas -->
+        <section class="projet-section website-link-section">
+            <h2>🔗 Voir le projet en ligne</h2>
+            <p>Accédez directement au site web déployé :</p>
+            <div class="link-card">
+                <span class="link-url" id="site-url-text">https://...</span>
+                <a href="#" id="projet-site-link" target="_blank" rel="noopener noreferrer" class="btn-visit">
+                    Consulter le site en direct 🚀
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pied de page -->
+    <footer>
+        <p>&copy; 2026 - CAMARA ISMAEL - Tous droits réservés.</p>
+    </footer>
+
+    <script src="projet.js"></script>
+</body>
+</html>
