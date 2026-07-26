@@ -1,21 +1,24 @@
-// Données de démonstration des projets
+// Données des projets (Modifiables uniquement ici dans le code)
 const projetsData = {
     '1': {
         titre: 'Projet 1 : Calculatrice Web',
         sousTitre: 'Application web interactive d\'opérations arithmétiques',
         description: 'Création d\'une calculatrice web simple comme premier projet.\n\nFonctionnalités principales :\n- Opérations de base (addition, soustraction, multiplication, division)\n- Interface épurée et réactive\n- Prise en charge des entrées tactiles et clavier',
-        siteUrl: 'https://cheketenetwork.github.io/calaculatrice-tchaiiiii/'
+        siteUrl: 'https://cheketenetwork.github.io/calaculatrice-tchaiiiii/',
+        captures: [
+            // Ajoutez les chemins vers vos captures d'écran ici (ex: 'images/calculatrice-1.png')
+        ]
     },
     '2': {
         titre: 'Projet 2 : Zynx Vêtements',
         sousTitre: 'Plateforme E-Commerce & Vitrine de Mode',
         description: 'Site e-commerce développé pour la présentation et le lancement d\'une nouvelle collection de vêtements.\n\nFonctionnalités principales :\n- Présentation du catalogue produit\n- Design soigné et moderne\n- Découverte de la collection créateur',
-        siteUrl: 'https://cheketenetwork.github.io/zynx-vetements/'
+        siteUrl: 'https://cheketenetwork.github.io/zynx-vetements/',
+        captures: [
+            // Ajoutez les chemins vers vos captures d'écran ici (ex: 'images/zynx-1.png')
+        ]
     }
 };
-
-// Mot de passe propriétaire par défaut pour déverrouiller le mode édition & ajout de captures
-const MOT_DE_PASSE_PROPRIETAIRE = 'ismael';
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Récupération de l'ID dans l'URL
@@ -27,24 +30,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Éléments du DOM
     const projetTitreEl = document.getElementById('projet-titre');
     const projetDescCourteEl = document.getElementById('projet-description-courte');
-    const projetTexteEditor = document.getElementById('projet-texte-editor');
     const projetTexteDisplay = document.getElementById('projet-texte-display');
-    const saveStatus = document.getElementById('save-status');
     const siteUrlText = document.getElementById('site-url-text');
     const projetSiteLink = document.getElementById('projet-site-link');
     const themeToggle = document.getElementById('theme-toggle');
-    const adminToggle = document.getElementById('admin-toggle');
-
-    // Éléments pour les captures d'écran
-    const screenshotInput = document.getElementById('screenshot-input');
-    const dropZone = document.getElementById('drop-zone');
     const galleryEl = document.getElementById('screenshots-gallery');
 
-    // 3. Remplissage des données de base
-    projetTitreEl.textContent = projet.titre;
-    projetDescCourteEl.textContent = projet.sousTitre;
-    siteUrlText.textContent = projet.siteUrl;
-    projetSiteLink.href = projet.siteUrl;
+    // 3. Remplissage des données
+    if (projetTitreEl) projetTitreEl.textContent = projet.titre;
+    if (projetDescCourteEl) projetDescCourteEl.textContent = projet.sousTitre;
+    if (siteUrlText) siteUrlText.textContent = projet.siteUrl;
+    if (projetSiteLink) {
+        projetSiteLink.href = projet.siteUrl;
+        // Si pas d'URL configurée, cacher la section de lien
+        if (!projet.siteUrl || projet.siteUrl === 'https://...') {
+            const linkSection = document.querySelector('.website-link-section');
+            if (linkSection) linkSection.style.display = 'none';
+        }
+    }
+
+    // Affichage de la description (conversion des retours à la ligne en balises <br>)
+    if (projetTexteDisplay) {
+        projetTexteDisplay.innerHTML = projet.description.replace(/\n/g, '<br>');
+    }
 
     // 4. Mode Sombre
     if (localStorage.getItem('portfolio_theme') === 'dark') {
@@ -61,98 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Gestion du statut Propriétaire (Admin)
-    let isAdmin = localStorage.getItem('portfolio_admin_active') === 'true';
-
-    function updateAdminUI() {
-        const adminElements = document.querySelectorAll('.admin-only');
-        
-        if (isAdmin) {
-            adminToggle.textContent = '🔓 Espace Propriétaire (Actif)';
-            adminToggle.classList.add('active');
-            adminElements.forEach(el => el.style.display = 'block');
-            if (projetTexteDisplay) projetTexteDisplay.style.display = 'none';
-        } else {
-            adminToggle.textContent = '🔒 Accès Propriétaire';
-            adminToggle.classList.remove('active');
-            adminElements.forEach(el => el.style.display = 'none');
-            if (projetTexteDisplay) projetTexteDisplay.style.display = 'block';
-        }
-
-        // Mettre à jour le texte affiché aux visiteurs
-        updateVisitorTextDisplay();
-        
-        // Re-rendre la galerie pour afficher/masquer les boutons de suppression
-        loadSavedImages();
-    }
-
-    if (adminToggle) {
-        adminToggle.addEventListener('click', () => {
-            if (isAdmin) {
-                if (confirm('Voulez-vous quitter le mode propriétaire ?')) {
-                    isAdmin = false;
-                    localStorage.setItem('portfolio_admin_active', 'false');
-                    updateAdminUI();
-                }
-            } else {
-                const password = prompt('Veuillez entrer le mot de passe propriétaire pour ajouter des captures d\'écran ou modifier le texte :');
-                if (password === MOT_DE_PASSE_PROPRIETAIRE || password === 'admin') {
-                    isAdmin = true;
-                    localStorage.setItem('portfolio_admin_active', 'true');
-                    updateAdminUI();
-                    alert('Accès propriétaire activé ! Vous pouvez maintenant ajouter des captures d\'écran et éditer le texte.');
-                } else if (password !== null) {
-                    alert('Mot de passe incorrect. Seul le propriétaire peut ajouter des captures d\'écran.');
-                }
-            }
-        });
-    }
-
-    // 6. Gestion du texte (Lecture seule visiteur / Édition propriétaire)
-    const storageKeyText = `projet_${id}_custom_text`;
-    const savedText = localStorage.getItem(storageKeyText);
-    const initialText = savedText !== null ? savedText : projet.description;
-    
-    projetTexteEditor.value = initialText;
-
-    function updateVisitorTextDisplay() {
-        const currentText = projetTexteEditor.value;
-        projetTexteDisplay.innerHTML = currentText.replace(/\n/g, '<br>');
-    }
-
-    let timeoutSave = null;
-    projetTexteEditor.addEventListener('input', () => {
-        saveStatus.textContent = 'Enregistrement...';
-        saveStatus.classList.add('saving');
-
-        clearTimeout(timeoutSave);
-        timeoutSave = setTimeout(() => {
-            localStorage.setItem(storageKeyText, projetTexteEditor.value);
-            saveStatus.textContent = 'Enregistré ✓';
-            saveStatus.classList.remove('saving');
-            updateVisitorTextDisplay();
-        }, 500);
-    });
-
-    // 7. Gestion des Captures d'Écran
-    const storageKeyImages = `projet_${id}_images`;
-
-    function loadSavedImages() {
-        const savedImages = JSON.parse(localStorage.getItem(storageKeyImages) || '[]');
-        renderGallery(savedImages);
-    }
-
-    function saveImages(imagesArray) {
-        try {
-            localStorage.setItem(storageKeyImages, JSON.stringify(imagesArray));
-        } catch (e) {
-            alert('La limite de stockage est atteinte pour les images. Essayez des fichiers plus légers.');
-        }
-    }
-
+    // 5. Affichage des Captures d'Écran
     function renderGallery(imagesArray) {
+        if (!galleryEl) return;
         galleryEl.innerHTML = '';
-        if (imagesArray.length === 0) {
+        
+        if (!imagesArray || imagesArray.length === 0) {
             galleryEl.innerHTML = `
                 <div class="empty-gallery">
                     <p>Aucune capture d'écran disponible pour le moment.</p>
@@ -164,31 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         imagesArray.forEach((imgData, index) => {
             const card = document.createElement('div');
             card.className = 'screenshot-card';
+            card.innerHTML = `<img src="${imgData}" alt="Capture d'écran ${index + 1}">`;
 
-            const deleteBtnHtml = isAdmin 
-                ? `<button class="delete-btn" title="Supprimer la capture" data-index="${index}">&times;</button>` 
-                : '';
-
-            card.innerHTML = `
-                <img src="${imgData}" alt="Capture d'écran ${index + 1}">
-                ${deleteBtnHtml}
-            `;
-
-            // Supprimer uniquement pour le propriétaire
-            if (isAdmin) {
-                const delBtn = card.querySelector('.delete-btn');
-                if (delBtn) {
-                    delBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const idx = parseInt(e.target.getAttribute('data-index'), 10);
-                        imagesArray.splice(idx, 1);
-                        saveImages(imagesArray);
-                        renderGallery(imagesArray);
-                    });
-                }
-            }
-
-            // Agrandir au clic (accessible à tous)
+            // Agrandir au clic
             card.addEventListener('click', () => {
                 openLightbox(imgData);
             });
@@ -197,62 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function handleFiles(files) {
-        if (!isAdmin) {
-            alert('Seul le propriétaire du site peut ajouter des captures d\'écran.');
-            return;
-        }
-
-        const savedImages = JSON.parse(localStorage.getItem(storageKeyImages) || '[]');
-        let loadedCount = 0;
-        const totalFiles = Array.from(files).filter(f => f.type.startsWith('image/')).length;
-
-        if (totalFiles === 0) return;
-
-        Array.from(files).forEach(file => {
-            if (!file.type.startsWith('image/')) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                savedImages.push(e.target.result);
-                loadedCount++;
-                if (loadedCount === totalFiles) {
-                    saveImages(savedImages);
-                    renderGallery(savedImages);
-                }
-            };
-            reader.readAsDataURL(file);
-        });
-    }
-
-    // Événement d'importation
-    screenshotInput.addEventListener('change', (e) => {
-        handleFiles(e.target.files);
-        screenshotInput.value = '';
-    });
-
-    // Événements Glisser-Déposer
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            if (isAdmin) dropZone.classList.add('drag-over');
-        }, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('drag-over');
-        }, false);
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        handleFiles(files);
-    });
-
-    // Modale Lightbox
+    // Modale Lightbox (Agrandissement d'image)
     function openLightbox(src) {
         const lightbox = document.createElement('div');
         lightbox.className = 'lightbox-modal';
@@ -269,6 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Appliquer les autorisations au chargement
-    updateAdminUI();
+    // Charger les captures d'écran configurées pour ce projet
+    renderGallery(projet.captures);
 });

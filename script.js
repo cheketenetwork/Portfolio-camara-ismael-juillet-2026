@@ -1,6 +1,4 @@
 const themeToggle = document.getElementById('theme-toggle');
-const accueilButton = document.getElementById('btn-salutation');
-const accueilMessage = document.getElementById('message-accueil');
 const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.getElementById('nav-menu');
 
@@ -31,12 +29,6 @@ if (themeToggle) {
         const isDark = document.body.classList.contains('dark-mode');
         localStorage.setItem('portfolio_theme', isDark ? 'dark' : 'light');
         themeToggle.textContent = isDark ? '☀️ Mode clair' : '🌙 Mode sombre';
-    });
-}
-
-if (accueilButton && accueilMessage) {
-    accueilButton.addEventListener('click', () => {
-        accueilMessage.textContent = 'Bienvenue sur mon portfolio, suivez mon évolution en tant que VibeCoder à mes côtés!';
     });
 }
 
