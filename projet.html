@@ -20,6 +20,7 @@
             <ul class="nav-menu active">
                 <li><a href="index.html" class="btn-back">← Retour aux projets</a></li>
                 <li><button id="theme-toggle" type="button">🌙 Mode sombre</button></li>
+                <li><button id="admin-toggle" type="button" class="btn-admin" title="Accès propriétaire">🔒 Accès Propriétaire</button></li>
             </ul>
         </nav>
     </header>
@@ -32,15 +33,20 @@
             <p id="projet-description-courte" class="projet-subtitle"></p>
         </section>
 
-        <!-- Section Écriture de texte -->
+        <!-- Section Texte de présentation -->
         <section class="projet-section text-editor-section">
             <div class="section-header">
-                <h2>📝 Présentation & Notes du Projet</h2>
-                <span id="save-status" class="save-status">Enregistré</span>
+                <h2>📝 Présentation & Description du Projet</h2>
+                <span id="save-status" class="save-status admin-only" style="display: none;">Enregistré</span>
             </div>
-            <p class="section-desc">Vous pouvez écrire ou modifier la description détaillée du projet ci-dessous :</p>
-            <div class="editor-wrapper">
-                <textarea id="projet-texte-editor" placeholder="Saisissez la description du projet, les fonctionnalités développées, les défis rencontrés, etc..."></textarea>
+            <p id="text-section-desc" class="section-desc">Détails et présentation complète du projet :</p>
+            
+            <!-- Affichage pour les visiteurs -->
+            <div id="projet-texte-display" class="projet-text-content"></div>
+
+            <!-- Éditeur réservé au propriétaire -->
+            <div class="editor-wrapper admin-only" style="display: none;">
+                <textarea id="projet-texte-editor" placeholder="Saisissez la description du projet, les fonctionnalités développées, etc..."></textarea>
             </div>
         </section>
 
@@ -49,21 +55,21 @@
             <div class="section-header">
                 <h2>🖼️ Captures d'écran du Projet</h2>
             </div>
-            <p class="section-desc">Ajoutez et consultez les captures d'écran de ce projet :</p>
+            <p class="section-desc">Aperçu visuel des différentes interfaces du projet :</p>
             
-            <!-- Zone d'import de captures d'écran -->
-            <div class="upload-box" id="drop-zone">
+            <!-- Zone d'import de captures d'écran (Réservée au propriétaire) -->
+            <div class="upload-box admin-only" id="drop-zone" style="display: none;">
                 <input type="file" id="screenshot-input" accept="image/*" multiple style="display: none;">
                 <label for="screenshot-input" class="upload-label">
                     <span class="upload-icon">📁</span>
                     <span class="upload-text"><strong>Cliquez ici</strong> ou glissez-déposez des captures d'écran</span>
-                    <span class="upload-hint">Formats acceptés : PNG, JPG, WEBP</span>
+                    <span class="upload-hint">Formats acceptés : PNG, JPG, WEBP (Réservé au propriétaire)</span>
                 </label>
             </div>
 
-            <!-- Galerie des captures -->
+            <!-- Galerie des captures (Visible par tous les visiteurs) -->
             <div id="screenshots-gallery" class="screenshots-gallery">
-                <!-- Les images téléchargées ou par défaut apparaîtront ici -->
+                <!-- Les captures d'écran ajoutées par le propriétaire s'affichent ici -->
             </div>
         </section>
 

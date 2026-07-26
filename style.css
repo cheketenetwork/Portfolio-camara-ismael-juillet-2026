@@ -686,3 +686,44 @@ body.dark-mode .link-url {
     }
 }
 
+/* Bouton d'accès Propriétaire */
+.btn-admin {
+    background: #64748b;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-admin:hover {
+    background: #475569;
+}
+
+.btn-admin.active {
+    background: #10b981;
+}
+
+.btn-admin.active:hover {
+    background: #059669;
+}
+
+/* Contenu Texte Visiteur */
+.projet-text-content {
+    background: #f8fafc;
+    border-left: 4px solid #007bff;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #1e293b;
+}
+
+body.dark-mode .projet-text-content {
+    background: #111827;
+    border-left-color: #3b82f6;
+    color: #e2e8f0;
+}
+
+
