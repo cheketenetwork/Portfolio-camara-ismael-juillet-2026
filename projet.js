@@ -1,12 +1,12 @@
 // Données des projets (Modifiables uniquement ici dans le code)
 const projetsData = {
     '1': {
-        titre: 'Projet 1 : Calculatrice Web',
-        sousTitre: 'Application web interactive d\'opérations arithmétiques',
-        description: 'Création d\'une calculatrice web simple comme premier projet.\n\nFonctionnalités principales :\n- Opérations de base (addition, soustraction, multiplication, division)\n- Interface épurée et réactive\n- Prise en charge des entrées tactiles et clavier',
-        siteUrl: 'https://cheketenetwork.github.io/calaculatrice-tchaiiiii/',
+        titre: 'Projet 1 : IvoPlan',
+        sousTitre: 'Assistant d\'organisation de cours sans IA',
+        description: 'IvoPlan est un assistant permettant de s\'organiser dans les cours.\n\nFonctionnalités principales :\n- Gestion du planning des cours\n- Organisation des devoirs et des révisions\n- Suivi des priorités et des échéances',
+        siteUrl: 'https://cheketenetwork.github.io/projet-assaistant-de-cours-sans-IA/',
         captures: [
-            // Ajoutez les chemins vers vos captures d'écran ici (ex: 'images/calculatrice-1.png')
+            // Ajoutez les chemins vers vos captures d'écran ici (ex: 'images/assistant-cours-1.png')
         ]
     },
     '2': {
